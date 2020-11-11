@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct LNode *PtrLNode;
+typedef int bool;//解决c不能使用布尔型 
+#define true 1
+#define false 0
+typedef int ElementType;//设置默认链表元素类型为整型 
+typedef struct LNode *PtrToLNode;
 struct LNode{
 	ElementType Data;
-	PtrToNode Next;
+	PtrToLNode Next;
 };
 typedef PtrToLNode Position;
 typedef PtrToLNode List;
@@ -29,7 +33,7 @@ bool Insert(List L,ElementType X,Position P){
 	}else{
 		tmp = (Position)malloc(sizeof(struct LNode));
 		tmp ->Data = X;
-		tmp ->Next = p;
+		tmp ->Next = P;
 		pre->Next = tmp;
 		return true;
 	}
@@ -48,5 +52,6 @@ bool Delete(List L,Position P){
 	}
 } 
 int main(){
+//	测试主函数
 	return 0;
 } 
