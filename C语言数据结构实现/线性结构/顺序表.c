@@ -1,7 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-typedef int Position
-typeof struct LNode *List
+typedef int bool;
+#define true 1
+#define false 0
+typedef int ElementType;//设置默认元素类型为整型 
+typedef int Position;
+typedef struct LNode *List; 
+#define MaxSize 255 
 struct LNode{
 	ElementType Data[MaxSize];
 	Position Last;
@@ -56,6 +61,7 @@ bool Delete(List L,Position P){
 	return true;
 } 
 int main(){
+//	测试主函数 
 	
 	return 0;
 } 
