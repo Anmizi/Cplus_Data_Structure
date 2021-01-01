@@ -1,21 +1,4 @@
 # C/Cplus数据结构实现
-   * [C/Cplus数据结构实现]()
-      * [线性表](#线性表)
-         * [定义](#定义)
-         * [顺序存储结构](#顺序存储结构)
-            * [顺序存储结构的基本操作](#顺序存储结构的基本操作)
-         * [链式存储结构](#链式存储结构)
-            * [链式存储结构的基本操作](#链式存储结构的基本操作)
-         * [总结](#总结)
-      * [栈和队列](#栈和队列)
-      * [串](#串)
-      * [树](#树)
-      * [图](#图)
-         - [定义](#定义)
-         - [图的存储结构](#图的存储结构)
-           - [邻接矩阵](#邻接矩阵)
-           - [邻接表存储结构](#邻接表存储结构)
-
 ## 线性表
 
 ### 定义
@@ -273,4 +256,157 @@
 **广度优先遍历（Breadth_First_Search），又称为广度优先搜索，简称BFS**:
 
 ![image-20201220202325585](imgs/image-20201220202325585.png)
+
+## 排序算法
+
+### 冒泡排序(Bubble Sort)
+
+**算法思想**
+
+冒泡排序是一种交换排序，核心是冒泡，把数组中最小的那个往上冒，冒的过程就是和他相邻的元素交换。
+
+重复走访要排序的数列，通过两两比较相邻记录的排序码。排序过程中每次从后往前冒一个最小值，且每次能确定一个数在序列中的最终位置。若发生逆序，则交换；有俩种方式进行冒泡，一种是先把小的冒泡到前边去，另一种是把大的元素冒泡到后边。
+
+**步骤**
+
+- 比较相邻的元素。如果第一个比第二个大，就交换他们两个。
+- 对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。
+- 针对所有的元素重复以上的步骤，除了最后一个。
+- 持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。
+
+**动图演示**
+
+![img](imgs/bubbleSort.gif)
+
+**代码实现**
+
+```c++
+void BubbleSort(int arr[],int n){
+    int temp;
+    for(int i=1;i<n;i++){
+        for(int j=0;j<n-i;j++){
+            if(arr[j]>arr[j+1]){
+                temp = arr[j+1];
+                arr[j+1] = arr[j];
+                arr[j] = temp;
+            }
+        }
+	}
+}
+```
+
+**优化改进**
+
+在某次遍历中如果没有数据交换，说明整个数组已经有序。若初始序列就是排序好的，如果用基础的冒泡排序方法，仍然还要比较O(N^2)次，但无交换次数。
+
+改进思路：
+
+通过设置标志位来记录此次遍历有无数据交换，进而可以判断是否要继续循环，设置一个flag标记，当在一趟序列中没有发生交换，则该序列已排序好，但优化后排序的时间复杂度没有发生量级的改变。
+
+**改进后代码**
+
+```c++
+void Bubble_sort(int arr[],int n){
+    int temp;
+    bool exchange;
+    for(int i=1;i<n;i++){
+        exchange = false;	
+       	//若该趟比较没有发生逆序，则说明序列已经有序，可直接结束排序过程
+        for(int j=0;j<n-i;j++){
+            if(arr[j]>arr[j+1]){
+                temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+                exchange = true;
+            }
+        }
+        if(!exchange) return;
+    }
+}
+```
+
+### 选择排序(Select Sort)
+
+**算法思想**
+
+选择排序(Selection-sort)是一种简单直观的排序算法。它的工作原理：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。
+
+**步骤**
+
+**动画演示**
+
+![img](imgs/selectSort.gif)
+
+### 插入排序(Insertion Sort)
+
+**算法思想**：在插入排序中，我们从前到后依次处理未排好序的元素，对于每个元素，我们将它与之前排好序的元素进行比较，找到对应的位置后并插入。
+
+**步骤**：
+
+![image-20210101154236971](imgs/image-20210101154236971.png)
+
+**动画演示**
+
+![img](imgs/insertSort.gif)
+
+**伪代码**
+
+```java
+function insertion_sort(array[]):
+	for(i=1;i<array.length;i++){
+        cur = array[i]
+        j=i-1
+        while(j>=0&&array[j]>cur):
+        	array[j+1] = array[j]
+            j--
+        array[j+1] = cur
+    }
+```
+
+
+
+### 快速排序(QuickSort)
+
+**快排思想**：快排是一种分治（Divide and Conquer）算法，在这种算法中，我们把大问题变成小问题，然后将小问题逐个解决，当小问题解决完时，大问题也迎刃而解。
+
+**步骤**：
+
+![image-20210101114050153](imgs/image-20210101114050153.png)
+
+![image-20210101120310208](imgs/image-20210101120310208.png)
+
+**动画实现**
+
+![](imgs/quicksort.gif)
+
+**伪代码**
+
+![image-20210101153707957](imgs/image-20210101153707957.png)
+
+**C++代码实现**
+
+```c++
+Paritition(int A[],int low,int high){
+    int pivot = A[low];
+    while(low<high){
+        while(low<high&&A[high]>=pivot){
+            --high;
+        }
+        A[low] = A[high];
+        while(low<high&&A[low]<=pivot){
+            ++low;
+        }
+        A[high] = A[low];
+    }
+    A[low] = pivot;
+    return low;
+}
+void QuickSort(int A[],int low,int high){
+    if(low<high){
+        int pivot = Paritition(A,low,high);
+        QuickSort(A,low,pivot-1);
+        QuickSort(A,pivot+1,high);
+    }
+}
+```
 
