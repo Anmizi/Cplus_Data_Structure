@@ -147,6 +147,176 @@
 
 ## 栈和队列
 
+### 定义
+
+**栈(Stack)**是限定仅在表尾进行插入和删除操作的线性表
+
+我们把允许插入和删除的一端称为**栈顶（top）**，另一端称为**栈底（bottom）**，不含任何数据元素的栈称为**空栈**。栈又称为**后进先出**（Last In First Out）的线性表，简称LIFO结构。
+
+
+
+### 栈的顺序存储结构
+
+结构定义
+
+```c
+typedef int SELemType;//SElemType 类型根据实际情况定义
+typedef struct{
+    SElemType data[MAXSIZE];
+    int top;	//栈顶指针
+}SqStack;
+```
+
+栈的插入操作，叫作**进栈**，也称压栈、入栈。
+
+```c
+//插入元素e为新的栈顶元素
+Status Push(SqStack *S,SElemType e){
+    if(S->top == MAXSIZE - 1){
+        //栈满
+        return ERROR;
+    }
+    S->top++;
+    S->data[S->top] = e;
+    return OK;
+}
+```
+
+栈的删除操作，叫作**出栈**，也有的叫作弹栈。
+
+```c
+//若栈不空，则删除S的栈顶元素，用e返回删除的元素，并返回OK,否则返回ERROR
+Status Pop(SqStack *S,SElemType *e){
+	if(S->top == -1){
+        return ERROR;
+    }
+    *e = S->data[S->top];
+    S->top--;
+    return OK;
+}
+```
+
+<font color=red>插入和删除操作都没有涉及到循环语句，因此时间复杂度为O(1)</font>
+
+### 两栈共享空间
+
+结构代码
+
+```c
+//两栈共享空间结构
+typedef struct{
+    SElemType data[MAXSIZE];
+    int top1;//栈1栈顶指针
+    int top2;//栈2栈顶指针
+}SqDoubleStack;
+```
+
+插入操作代码
+
+```c
+//插入元素e为新的元素
+Status Push(SqStack *S,SElemType e,int stackNumber){
+    if(S->top1+1 == S->top2){
+        //栈满，不可push
+        return ERROR;
+    }
+    if(stackNumber == 1){
+        S->data[++S->top1] = e;
+    }else if(stackNumber == 2){
+        S->data[--S->top2] = e;
+    }
+    return OK;
+}
+```
+
+删除操作代码
+
+```c
+//若栈不空，则删除S的栈顶元素，用e返回，并返回ok，否则返回ERROR
+Status Pop(SqDoubleStack *S,SElemType *e,int stackNumber){
+    if(stackNumber == 1){
+        if(S->top1 == -1)
+            return ERROR;
+        *e = S->data[S->top--];
+    }else if(stackNumber == 2){
+        if(S->top2 == MAXSIZE)
+            return ERROR;
+        *e = S->data[S->top2++];
+    }
+    return OK;
+}
+```
+
+### 栈的链式存储结构
+
+链栈的结构代码如下
+
+```c
+typedef struct StackNode{
+    SElemType data;
+    struct StackNode *next;  
+}StackNode,*LinkStackPtr;
+
+typedef struct LinkStack{
+    LinkStackPtr top;
+    int count;
+}LinkStack;
+```
+
+进栈(插入)操作
+
+```c
+//插入元素e为新的栈顶元素
+Status Push(LinkStack *S,SElemType e){
+    LinkStackPtr s = (LinkStackPtr)malloc(sizeof(StackNode));
+    s->data = e;
+    s->next = S->top;
+    S->top = s;
+    S->count++;
+    return OK;
+}
+```
+
+出栈(删除)操作
+
+```c
+//若栈不空，删除S的栈顶元素，用e返回其值，并返回ok，否则返回ERROR
+Status Pop(LinkStack *S,SElemType *e){
+    LinkStackPtr p;
+    if(StackEmpty(*S)){
+        return ERROR;
+    }
+    *e = S->top->data;
+    p = S->top;
+    S->top = S->top->next;
+    free(p);
+    S->count--;
+    return OK;
+}
+```
+
+<font color=red>注：链栈的入栈和出栈操作时间复杂度都为O(1)</font>
+
+### 栈的应用-递归
+
+递归定义：
+
+在高级语言中，调用自己和其他函数并没有本质的不同。**我们把一个直接调用自己或通过一系列的调用语句间接地调用自己的函数**，称做递归函数。
+
+每个递归都必须至少要有一个条件，满足时递归不再进行，即不再引用自身而是返回值退出
+
+递归的优点：
+
+递归使程序的结构更清晰，更简洁，更容易让人理解，从而减少读懂代码的时间
+
+递归缺点：
+
+大量的递归调用会建立函数的副本，会耗费大量的时间和内存
+
+迭代则不需要反复调用函数和占用额外的内存，因此我们应视情况不同选择不同的代码实现方式
+
+
+
 ## 串
 
 ## 树
