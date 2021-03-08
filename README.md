@@ -139,7 +139,7 @@
 
 ### 总结
 
-![](imgs/image-20201218202052400.png)
+![](https://gitee.com/Stubborner/images/raw/master/images/image-20201218202052400.png)
 
 *若线性表需要频繁查找，很少进行插入和删除操作时，宜采用顺序存储结构。若需要频繁插入和删除时，宜采用单链表结构。*
 
@@ -422,7 +422,7 @@ int BFmatching(char *s,char *t,int pos){
 
 **图的邻接矩阵（Adjacency Matrix）存储方式**是用两个数组来表示图。一个一维数组存储图中*顶点信息*，一个二维数组（称为邻接矩阵）存储图中的*边或弧的信息*。
 
-![image-20201219203309575](imgs/image-20201219203309575.png)
+![image-20201219203309575](https://gitee.com/Stubborner/images/raw/master/images/image-20201219203309575.png)
 
 有了这个矩阵，我们就可以很容易地知道图中的信息。
 
@@ -430,16 +430,16 @@ int BFmatching(char *s,char *t,int pos){
 - 我们要知道某个顶点的度，其实就是这个顶点v；在邻接矩阵中第i行（或第i列）的元素之和。比如顶点v<sub>1</sub>的度就是1+0+1+0=2。
 - 求顶点v<sub>i</sub>的所有邻接点就是将矩阵中第i行元素扫描一遍，arc[i] [j]为1就是邻接点。
 
-![image-20201219203947391](imgs/image-20201219203947391.png)
+![image-20201219203947391](https://gitee.com/Stubborner/images/raw/master/images/image-20201219203947391.png)
 
 有向图讲究入度与出度，顶点v1的入度为1，正好是第v1列各数之和。顶点v1的出度为2，即第v1行的各数之和。
 
 与无向图同样的办法，判断顶点vi到vj是否存在弧，只需要查找矩阵中arc[i] [j] 是否为1即可。要求vi的所有邻接点就是将矩阵第i行元素扫描一遍，查找arc[i] [j]
 为1的顶点。
 
-![image-20201219204823476](imgs/image-20201219204823476.png)
+![image-20201219204823476](https://gitee.com/Stubborner/images/raw/master/images/image-20201219204823476.png)
 
-![image-20201219204924320](imgs/image-20201219204924320.png)
+![image-20201219204924320](https://gitee.com/Stubborner/images/raw/master/images/image-20201219204924320.png)
 
 **缺点**：邻接矩阵是不错的一种图存储结构，但是我们也发现，对于边数相对顶点较少的图，这种结构是存在对存储空间的极大浪费的。
 
@@ -450,7 +450,7 @@ int BFmatching(char *s,char *t,int pos){
 1. 图中顶点用一个一维数组存储，当然，顶点也可以用单链表来存储，不过数组可以较容易地读取顶点信息，更加方便。另外，对于顶点数组中，每个数据元素还需要存储指向第一个邻接点的指针，以便于查找该顶点的边信息。
 2. 图中每个顶点vi的所有邻接点构成一个线性表，由于邻接点的个数不定，所以用单链表存储，无向图称为顶点vi的边表，有向图则称为顶点vi作为弧尾的出边表。
 
-![image-20201219213932987](imgs/image-20201219213932987.png)
+![image-20201219213932987](https://gitee.com/Stubborner/images/raw/master/images/image-20201219213932987.png)
 
 从图中我们知道，顶点表的各个结点由data和firstedge两个域表示，data是数据域，存储顶点的信息，firstedge是指针域，指向边表的第一个结点，即此顶点的第一个邻接点。边表结点由adjvex和next 两个域组成。adjvex是邻接点域，存储某顶点的邻接点在顶点表中的下标，next则存储指向边表中下一个结点的指针。
 
@@ -458,11 +458,11 @@ int BFmatching(char *s,char *t,int pos){
 
 若是有向图，邻接表结构是类似的，比如图7-4-7中第一幅图的邻接表就是第二幅图。但要注意的是有向图由于有方向，我们是以顶点为弧尾来存储边表的，这样很容易就可以得到每个顶点的出度。但也有时为了便于确定顶点的入度或以顶点为弧头的弧，我们可以建立一个有向图的**逆邻接表**，即对每个顶点v，都建立一个链接为vi为弧头的表。如图7-4-7的第三幅图所示。
 
-![image-20201219214728142](imgs/image-20201219214728142.png)
+![image-20201219214728142](https://gitee.com/Stubborner/images/raw/master/images/image-20201219214728142.png)
 
 对于带权值的网图，可以在边表结点定义中再增加一个weight的数据域，存储权值信息即可，如图7-4-8所示。
 
-![image-20201219215416748](imgs/image-20201219215416748.png)
+![image-20201219215416748](https://gitee.com/Stubborner/images/raw/master/images/image-20201219215416748.png)
 
 ### 图的遍历
 
@@ -472,7 +472,7 @@ int BFmatching(char *s,char *t,int pos){
 
 **广度优先遍历（Breadth_First_Search），又称为广度优先搜索，简称BFS**:
 
-![image-20201220202325585](imgs/image-20201220202325585.png)
+![image-20201220202325585](https://gitee.com/Stubborner/images/raw/master/images/image-20201220202325585.png)
 
 ## 排序算法
 
@@ -493,7 +493,7 @@ int BFmatching(char *s,char *t,int pos){
 
 **动图演示**
 
-![img](imgs/bubbleSort.gif)
+![img](https://gitee.com/Stubborner/images/raw/master/images/bubbleSort.gif)
 
 **代码实现**
 
@@ -552,7 +552,7 @@ void Bubble_sort(int arr[],int n){
 
 **动画演示**
 
-![img](imgs/selectSort.gif)
+![img](https://gitee.com/Stubborner/images/raw/master/images/selectSort.gif)
 
 ### 插入排序(Insertion Sort)
 
@@ -560,11 +560,11 @@ void Bubble_sort(int arr[],int n){
 
 **步骤**：
 
-![image-20210101154236971](imgs/image-20210101154236971.png)
+![image-20210101154236971](https://gitee.com/Stubborner/images/raw/master/images/image-20210101154236971.png)
 
 **动画演示**
 
-![img](imgs/insertSort.gif)
+![img](https://gitee.com/Stubborner/images/raw/master/images/insertSort.gif)
 
 **伪代码**
 
@@ -588,17 +588,17 @@ function insertion_sort(array[]):
 
 **步骤**：
 
-![image-20210101114050153](imgs/image-20210101114050153.png)
+![image-20210101114050153](https://gitee.com/Stubborner/images/raw/master/images/image-20210101114050153.png)
 
-![image-20210101120310208](imgs/image-20210101120310208.png)
+![image-20210101120310208](https://gitee.com/Stubborner/images/raw/master/images/image-20210101120310208.png)
 
 **动画实现**
 
-![](imgs/quicksort.gif)
+![](https://gitee.com/Stubborner/images/raw/master/images/quicksort.gif)
 
 **伪代码**
 
-![image-20210101153707957](imgs/image-20210101153707957.png)
+![image-20210101153707957](https://gitee.com/Stubborner/images/raw/master/images/image-20210101153707957.png)
 
 **C++代码实现**
 
